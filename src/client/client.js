@@ -8,20 +8,24 @@ import ApolloClient, {createNetworkInterface, addTypename} from 'apollo-client';
 import {ApolloProvider} from 'react-apollo';
 import form from './state/form';
 import context from './context';
-import '../universal/assets/Semantic-UI-CSS/semantic.css';
+import {authentication} from './middlewares/authentication';
+// import '../universal/assets/Semantic-UI-CSS/semantic.css';
 // import form from '../universal/containers/hello/form';
+
+const networkInterface = createNetworkInterface({
+  uri: '/graphql',
+  opts: {
+    credentials: 'same-origin',
+  },
+  queryTransformer: addTypename,
+  transportBatching: true,
+  shouldBatch: true,
+  initialState: window.__APOLLO_STATE__,
+  ssrForceFetchDelay: 3000,
+});
+networkInterface.use([authentication]);
 const apolloClient = new ApolloClient({
-  networkInterface: createNetworkInterface({
-    uri: '/graphql',
-    opts: {
-      credentials: 'same-origin',
-    },
-    queryTransformer: addTypename,
-    transportBatching: true,
-    shouldBatch: true,
-    initialState: window.__APOLLO_STATE__,
-    ssrForceFetchDelay: 3000,
-  }),
+  networkInterface,
 });
 // const state = createClientState();
 

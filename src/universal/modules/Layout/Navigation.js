@@ -1,8 +1,12 @@
 import React, {Component, PropTypes} from 'react';
 import autobind from 'autobind-decorator';
 import {Match, Link} from 'react-router';
+import {spring} from 'react-motion';
+import MatchWithFade from '../../components/MatchWithFade';
 import s from './navigation.styl';
 import LoginForm from '../../components/LoginForm';
+import RegisterForm from '../../components/RegisterForm';
+import TemplateForm from '../../components/TemplateForm';
 const Test = text => <h2>{text}</h2>;
 const activities = pathname => [
   {
@@ -18,6 +22,9 @@ const activities = pathname => [
         to: `${pathname}/login`,
         text: '登陆',
       }, {
+        to: `${pathname}/register`,
+        text: '注册',
+      }, {
         to: `${pathname}/profile`,
         text: '关于我',
       }, {
@@ -30,13 +37,16 @@ const activities = pathname => [
     routes: [
       {
         pattern: `${pathname}/template`,
-        component: Test.bind(null, 'template'),
+        component: TemplateForm,
       }, {
         pattern: `${pathname}/component`,
         component: Test.bind(null, 'cad'),
       }, {
         pattern: `${pathname}/login`,
         component: LoginForm,
+      }, {
+        pattern: `${pathname}/register`,
+        component: RegisterForm,
       },
     ],
   },
@@ -49,6 +59,11 @@ class Navigation extends Component {
       stageState: 0,
     };
   }
+  // componentDidMount() {
+  //   if (location.pathname.match(`${this.props.pathname}`) && location.pathname !== `${this.props.pathname}`) {
+  //     this.navForward();
+  //   }
+  // }
   handleClick(direction) {
     if (direction === 'fore') {
       return this.navForward;
@@ -58,12 +73,10 @@ class Navigation extends Component {
   }
   @autobind
   navForward() {
-    console.log('fore');
-    this.setState({stageState: (this.state.stageState - 20)});
+    this.setState({stageState: (this.state.stageState - 20)}, console.log('I have been forword'));
   }
   @autobind
   navBackward() {
-    console.log('back');
     this.setState({stageState: (this.state.stageState + 20)});
   }
   @autobind
@@ -75,6 +88,7 @@ class Navigation extends Component {
         fore={this.navForward}
         title={activity.title}
         routes={activity.routes}
+        pathname={this.props.pathname}
         />
     );
   }
@@ -97,23 +111,34 @@ Navigation.propTypes = {
 
 export default Navigation;
 
-const Activity = ({children, position, fore, back, title, routes}) => {
+const Activity = ({children, position, fore, back, title, routes, pathname}) => {
   const renderLink = ({to, text}, i) =>
-    to ? <li><Link to={to} key={`link-${i}`} onClick={fore}>{text}</Link></li> : null;
-  const renderMatch = ({pattern, component}, i) =>
-    pattern ? <Match pattern={pattern} key={`match-${i}`} component={component}/> : null;
-  const handleClick = () => {
-    back();
-
-    setTimeout(() => {
-      history.back();
-    }, 500);
+    to ? <li><Link to={to} key={`link-${i}`}>{text}</Link></li> : null;
+  const fadeStyle = {
+    enter: {
+      opacity: spring(1),
+    },
+    leave: {
+      opacity: spring(0),
+    },
   };
+  const renderMatch = ({pattern, component}, i) =>
+    pattern ?
+      <MatchWithFade
+        fore={fore}
+        back={back}
+        pattern={pattern}
+        key={`match-${i}`}
+        component={component}
+        fadeStyle={fadeStyle}
+        /> : null;
   return (
     <div className={s.activity}>
       {position === 'first' ?
         <h3 className={s.indicationFirst}>导航栏</h3> :
-          <h3 className={s.indication} onClick={handleClick}>返回</h3>
+          <h3 className={s.indication}>
+            <Link to={`${pathname}`}>返回</Link>
+          </h3>
       }
       <hr/>
       <h2 className={s.title}>{title}</h2>

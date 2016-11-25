@@ -1,0 +1,51 @@
+.form
+  width 100%
+  input
+    display block
+    width 100%
+    padding 10px
+    border 0
+    margin-bottom 20px
+    outline-color #FFF
+    transition outline 0.2s ease-in
+    outline-width 0px
+    &:focus
+      outline-color #CE5C60
+      outline-width 1px
+.button-group
+  position absolute
+  width 50%
+  left: 45%
+  height 50px
+  display flex
+  justify-content space-between
+
+  button
+    width: 100px
+    padding 5px 20px
+    background #CE5C60
+    color white
+    border 0
+    border-radius 5px
+    cursor pointer
+.form-title
+  display flex
+  justify-content space-around
+  margin-bottom 20px
+  h3
+    margin 3px
+.title-button-group
+  width 50%
+  display flex
+  justify-content flex-end
+  button
+    margin 0 5px
+    padding 0 20px
+    background #CE5C60
+    color white
+    border 0
+    cursor pointer
+  button:nth-child(1)
+    border-radius 5px 0 0 5px
+  button:nth-child(2)
+    border-radius 0 5px 5px 0

@@ -10,13 +10,29 @@ import s from './styles.styl';
 import Layout from '../../modules/Layout';
 
 const query = gql`
-  mutation Mutation($name: String!) {
-    postAuthor(name: $name)
+  mutation Mutation($email: String!, $password: String!) {
+    loginUser(email: $email, password: $password)
   }`;
-// @graphql(query)
-@observer(['form'])
+@graphql(query)
+@observer(['form', 'globalState'])
 @CSSModules(s)
 export default class LoginForm extends React.Component {
+  @autobind
+  handleSubmit(e) {
+    const {form, mutate, globalState} = this.props;
+    e.preventDefault();
+    if (!form.$('email').error && !form.$('password').error) {
+      mutate({
+        variables: form.values(),
+      }).then(({data}) => {
+        console.log('got token', JSON.parse(data.registerUser));
+        const {token, username} = JSON.parse(data.registerUser);
+        console.log(token);
+        globalState.login(token, username);
+      })
+      .catch(err => console.log('got error', err));
+    }
+  }
   render() {
     const {pathname, isExact, form} = this.props;
 
@@ -41,7 +57,6 @@ export default class LoginForm extends React.Component {
               onChange={form.$('password').sync}
               />
             <p>{form.$('password').error}</p>
-
             <button>
               确定
             </button>
@@ -49,7 +64,6 @@ export default class LoginForm extends React.Component {
           </fieldset>
 
         </form>
-        <Match pattern={pathname} exactly render={() => null}/>
       </div>
     );
   }

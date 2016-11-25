@@ -2,7 +2,13 @@ import logger from 'debug';
 import {checkAuthorized} from '../graphql/controllers/authorization';
 
 export default (req, res, next) => {
-  checkAuthorized(req.token).then(auth => {
+  console.log(req);
+  console.log('---------------------------');
+  console.log(req.headers);
+  console.log('---------------------------');
+  console.log(req.headers.authorization);
+  console.log('---------------------------');
+  checkAuthorized(req.headers.authorization).then(auth => {
     if (auth) {
       logger('server:authorized')(auth._id);
       req.user = auth.email;

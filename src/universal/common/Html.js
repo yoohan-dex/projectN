@@ -16,6 +16,7 @@ class Html extends React.Component {
           <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
           {process.env.DEV ? null : <link href={'/build/bundle.css'} rel="stylesheet"/>}
           <link rel="icon" href="/favicon.ico"/>
+          <link rel="stylesheet" href="/build/template.css"/>
           <script dangerouslySetInnerHTML={insertState(state)}/>
         </head>
         <body>

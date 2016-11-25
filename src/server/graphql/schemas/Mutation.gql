@@ -1,4 +1,5 @@
 type Mutation {
+  loginUser(email: String, password: String): String
   postAuthor(name: String): String
   registerUser(email: String, password: String): String
 }

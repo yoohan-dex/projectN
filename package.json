@@ -105,6 +105,7 @@
     "react-router": "^4.0.0-alpha.4",
     "semantic-ui-react": "^0.56.1",
     "socketcluster": "^5.0.17",
+    "styled-components": "^1.0.10",
     "stylus": "^0.54.5",
     "validatorjs": "^3.7.0"
   }

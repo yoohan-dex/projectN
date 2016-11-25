@@ -13,7 +13,7 @@ const fields = {
   },
 };
 
-class LoginForm extends MobxReactForm {
+class Form extends MobxReactForm {
   onSuccess(form) {
     console.log('Form Values!', form.values());
   }
@@ -22,6 +22,6 @@ class LoginForm extends MobxReactForm {
     form.invalidate('This is a generic error message!');
   }
 }
-export default new LoginForm({fields, plugins});
+export default new Form({fields, plugins});
 
 

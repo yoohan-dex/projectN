@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import {registerAccount} from '../../controllers/authorization';
+import {registerAccount, loginAccount} from '../../controllers/authorization';
 import {users} from '../../../../universal/utils/validate';
 
 export const postAuthor = (r, {name}) => `fuck you ${name}`;
@@ -10,5 +10,11 @@ Joi.validate(token, users, (err, token) => {
   }
   return registerAccount(token);
 });
-
+export const loginUser = (r, token) =>
+Joi.validate(token, users, (err, token) => {
+  if (err) {
+    return err;
+  }
+  return loginAccount(token);
+});
 

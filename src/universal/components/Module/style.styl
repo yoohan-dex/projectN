@@ -1,0 +1,34 @@
+.module 
+  width 100%
+  height 150px
+  border-radius 10px
+  background rgba(#f0f0f0, 0.2)
+  box-shadow 0 0 0 0 lighten(#CE5C60, 5)
+  cursor pointer
+  transition box-shadow 0.5s cubic-bezier(0.15, 0.81, 0.27, 0.96)
+  &:hover
+    box-shadow 0 0 1px 3px lighten(#CE5C60, 5)
+    span
+      transform scale(1.2)
+  .plus
+    width 100%
+    height: 100%
+    font-size 30px
+    display flex
+    justify-content center
+    align-items center
+
+    span
+      transition transform 0.5s cubic-bezier(0.15, 0.81, 0.27, 0.96)
+      display block
+      line-height 1
+      color #CE5C60
+      font-size: 100px
+.hover
+  padding 10px
+  cursor pointer
+  &:hover
+    background rgba(#f0f0f0, 0.2)
+    transition background 0.3s ease-in
+.highlight
+  box-shadow 0 0 1px 1px lighten(#CE5C60, 5)

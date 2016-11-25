@@ -1,6 +1,6 @@
 // import {getUserByEmail} from './helper';
 import {author, getTest} from './queries/query';
-import {postAuthor, registerUser} from './mutations/authorization';
+import {postAuthor, registerUser, loginUser} from './mutations/authorization';
 export default {
   Query: {
     author,
@@ -9,5 +9,6 @@ export default {
   Mutation: {
     postAuthor,
     registerUser,
+    loginUser,
   },
 };

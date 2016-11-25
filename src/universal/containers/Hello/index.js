@@ -24,7 +24,7 @@ export default class Hello extends React.Component {
 
     return (
       <div styleName="container">
-        <Layout pathname={pathname} isExact={isExact}/>
+        <Layout pathname={pathname} sidebarPathname="options" isExact={isExact}/>
       </div>
     );
   }

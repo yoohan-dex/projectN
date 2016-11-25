@@ -1,5 +1,6 @@
 import validatorjs from 'validatorjs';
 import MobxReactForm from 'mobx-react-form';
+
 const plugins = {dvr: validatorjs};
 
 const fields = {
@@ -9,7 +10,7 @@ const fields = {
   },
   password: {
     label: 'Password',
-    rules: 'required|string|between:5,25',
+    rules: 'required|string|between:8,25',
   },
 };
 

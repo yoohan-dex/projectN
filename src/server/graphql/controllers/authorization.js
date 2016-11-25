@@ -13,9 +13,9 @@ export async function getUserByEmail(email) {
   }
 }
 
-export async function loginAccount(username, password) {
+export async function loginAccount({email, password}) {
   const user = await db.User.findOne({
-    username,
+    email,
     password: sha512(password),
   });
   if (!user) {
@@ -23,7 +23,11 @@ export async function loginAccount(username, password) {
   }
   user.token = createAuthToken(user._id);
   await user.save();
-  return user.toJSON();
+  const res = {
+    username: user.username,
+    token: user.token,
+  };
+  return JSON.stringify(res);
 }
 
 export async function registerAccount({email, password}) {
@@ -33,7 +37,11 @@ export async function registerAccount({email, password}) {
   });
   user.token = createAuthToken(user._id);
   await user.save();
-  return user;
+  const res = {
+    username: user.username,
+    token: user.token,
+  };
+  return JSON.stringify(res);
 }
 
 export async function checkAuthorized(token) {
