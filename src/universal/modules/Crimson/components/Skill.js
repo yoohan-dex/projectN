@@ -12,9 +12,9 @@ const Skill = props => {
   );
 };
 
-Skill.propTypes = {
-  skill: PropTypes.object,
-};
+// Skill.propTypes = {
+//   skill: PropTypes.object,
+// };
 
 export default Skill;
 
